@@ -1,0 +1,227 @@
+:root{
+  --primary:#667eea;
+  --secondary:#764ba2;
+  --bg1:#0b1026;
+  --bg2:#1a1f3a;
+  --card:rgba(255,255,255,.92);
+  --text:#1f2937;
+  --muted:#6b7280;
+  --border:rgba(17,24,39,.12);
+  --danger:#b00020;
+  --shadow:0 20px 60px rgba(0,0,0,.18);
+}
+
+*{box-sizing:border-box;}
+
+html,body{height:100%;}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 700px at 15% 10%, rgba(102,126,234,.38), transparent 55%),
+    radial-gradient(900px 600px at 85% 20%, rgba(118,75,162,.35), transparent 55%),
+    linear-gradient(135deg, var(--bg1), var(--bg2));
+}
+
+a{color:inherit;}
+
+.auth-shell{
+  min-height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px 16px;
+}
+
+.auth-card{
+  width:min(980px, 100%);
+  display:grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap:18px;
+}
+
+@media (max-width: 900px){
+  .auth-card{grid-template-columns:1fr;}
+}
+
+.panel{
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.panel-main{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:28px;
+}
+
+@media (max-width: 520px){
+  .panel-main{padding:22px 18px;}
+}
+
+.panel-side{
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.92);
+  padding:28px;
+  backdrop-filter: blur(14px);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.brand a{
+  text-decoration:none;
+  font-weight:900;
+  letter-spacing:-.5px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:36px;
+  border-radius:14px;
+  background:rgba(0,0,0,.08);
+}
+
+h1{
+  font-size:24px;
+  letter-spacing:-.6px;
+  margin:0 0 8px;
+}
+
+.subtitle{
+  margin:0 0 18px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.form{
+  display:grid;
+  gap:12px;
+}
+
+.field{
+  display:grid;
+  gap:6px;
+}
+
+.label{
+  font-size:13px;
+  font-weight:700;
+}
+
+.input, .select{
+  width:100%;
+  padding:12px 12px;
+  border-radius:14px;
+  border:1px solid rgba(17,24,39,.18);
+  background:white;
+  outline:none;
+  transition: box-shadow .15s ease, border-color .15s ease, transform .08s ease;
+}
+
+.input:focus, .select:focus{
+  border-color: rgba(102,126,234,.65);
+  box-shadow: 0 0 0 4px rgba(102,126,234,.18);
+}
+
+.row{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+}
+
+@media (max-width: 520px){
+  .row{grid-template-columns:1fr;}
+}
+
+.actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:6px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  appearance:none;
+  border:none;
+  cursor:pointer;
+  padding:12px 14px;
+  border-radius:14px;
+  font-weight:800;
+  letter-spacing:-.2px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color:white;
+  box-shadow: 0 12px 28px rgba(102,126,234,.30);
+}
+
+.btn:hover{filter:brightness(1.03);}
+.btn:active{transform:translateY(1px);}
+
+.btn-secondary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:12px 14px;
+  border-radius:14px;
+  font-weight:800;
+  letter-spacing:-.2px;
+  text-decoration:none;
+  background: rgba(255,255,255,.10);
+  color: rgba(255,255,255,.92);
+  border: 1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover{background: rgba(255,255,255,.14);}
+.btn-secondary:active{transform:translateY(1px);}
+
+.link-muted{
+  color:var(--muted);
+  text-decoration:none;
+  font-weight:650;
+}
+
+.link-muted:hover{text-decoration:underline;}
+
+.alert{
+  border-radius:16px;
+  padding:12px 12px;
+  border:1px solid rgba(176,0,32,.25);
+  background:rgba(176,0,32,.08);
+  color:var(--danger);
+  font-weight:650;
+}
+
+.side-title{
+  font-size:16px;
+  font-weight:900;
+  margin:0 0 10px;
+}
+
+.side-list{
+  margin:0;
+  padding-left:18px;
+  color:rgba(255,255,255,.86);
+  line-height:1.65;
+}
+
+.side-note{
+  margin-top:16px;
+  font-size:13px;
+  color:rgba(255,255,255,.72);
+}

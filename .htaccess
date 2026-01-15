@@ -1,0 +1,81 @@
+# Pretty URLs for student sites
+# Requires: Apache mod_rewrite enabled and AllowOverride All for this directory
+
+RewriteEngine On
+
+# -----------------------------
+# Intranet "no .php" URLs
+# -----------------------------
+# 1) Redirect any direct request to *.php to its extensionless version.
+#    Example: /login.php  -> /login
+# Only apply when NOT using the host-mapped student site domain.
+RewriteCond %{HTTP_HOST} !^pepito\.local$ [NC]
+RewriteCond %{REQUEST_METHOD} =GET [OR]
+RewriteCond %{REQUEST_METHOD} =HEAD
+RewriteCond %{THE_REQUEST} \s/+([^\s\?]+?)\.php(?:[\s\?]) [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# 2) Internally map extensionless paths to their .php files if they exist.
+#    Example: /login -> login.php
+#    This lets you type: http://academia.local/login
+RewriteCond %{HTTP_HOST} !^pepito\.local$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+?)/?$ $1.php [L]
+
+# Friendly URLs for the intranet itself (academia.local/dashboard/ -> dashboard.php)
+# Only apply when NOT using the "host mapped" student site domain.
+RewriteCond %{HTTP_HOST} !^pepito\.local$ [NC]
+RewriteRule ^dashboard/?$ dashboard.php [L]
+RewriteCond %{HTTP_HOST} !^pepito\.local$ [NC]
+RewriteRule ^login/?$ login.php [L]
+RewriteCond %{HTTP_HOST} !^pepito\.local$ [NC]
+RewriteRule ^register/?$ register.php [L]
+RewriteCond %{HTTP_HOST} !^pepito\.local$ [NC]
+RewriteRule ^profile/?$ profile.php [L]
+RewriteCond %{HTTP_HOST} !^pepito\.local$ [NC]
+RewriteRule ^editor/?$ editor.php [L]
+RewriteCond %{HTTP_HOST} !^pepito\.local$ [NC]
+RewriteRule ^my-website/?$ my-website.php [L]
+RewriteCond %{HTTP_HOST} !^pepito\.local$ [NC]
+RewriteRule ^teacher/?$ teacher-dashboard.php [L]
+RewriteCond %{HTTP_HOST} !^pepito\.local$ [NC]
+RewriteRule ^teacher-login/?$ teacher-login.php [L]
+
+# Host mapping (simulate a real domain):
+# If you point pepito.local -> this server (via DNS/hosts + VirtualHost),
+# then visiting http://pepito.local/ will show the selected student's site.
+#
+# IMPORTANT: This must run BEFORE the "real file/folder" short-circuit,
+# otherwise "/" matches as a directory and rewrites won't apply.
+
+# pepito.local/
+RewriteCond %{HTTP_HOST} ^pepito\.local$ [NC]
+RewriteRule ^$ /s?user=bianney&site=bianney-2-2&page=index [L,QSA]
+
+# If the requested path is a real file/folder, serve it directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# pepito.local/galeria  -> page=galeria
+# pepito.local/galeria.html -> page=galeria
+RewriteCond %{HTTP_HOST} ^pepito\.local$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+?)\.html$ /s?user=bianney&site=bianney-2-2&page=$1 [L,QSA]
+
+RewriteCond %{HTTP_HOST} ^pepito\.local$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+?)/?$ /s?user=bianney&site=bianney-2-2&page=$1 [L,QSA]
+
+# Public pretty URLs (recommended)
+# /p/{user}/{site}/{page}
+RewriteRule ^p/([^/]+)/([^/]+)/([^/]+)/?$ /s?user=$1&site=$2&page=$3 [L,QSA]
+
+# /p/{user}/{site}
+RewriteRule ^p/([^/]+)/([^/]+)/?$ /s?user=$1&site=$2 [L,QSA]
+
+# /p/{user}
+RewriteRule ^p/([^/]+)/?$ /s?user=$1 [L,QSA]

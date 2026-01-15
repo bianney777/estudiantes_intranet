@@ -1,0 +1,25 @@
+<!--
+
+*Note*
+Uses "window.innerWidth" and "window.innerHeight" for canvas size, so when scaling you have to refresh browser for canvas size to update.
+
+-->
+<div id="app" class="app">
+    <div class="start-screen animated bounceIn">
+        <img class="start-screen-logo" src="https://arcade.arealalien.com/games/snake/logo.png" alt="">
+
+        <div class="options">
+            <h3>Choose Difficulty</h3>
+            <p class="end-score"></p>
+            <button data-difficulty="75" class="active">Easy</button>
+            <button data-difficulty="50">Medium</button>
+            <button data-difficulty="25">Hard</button>
+        </div>
+
+        <button class="play-btn">Play</button>
+    </div>
+
+    <canvas></canvas>
+
+    <div class="score">0</div>
+</div>

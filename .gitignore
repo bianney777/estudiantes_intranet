@@ -1,0 +1,23 @@
+# OS / Editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+
+# PHP tooling (if ever used)
+vendor/
+composer.lock
+
+# Runtime / cache
+*.log
+*.tmp
+
+# SQLite runtime DB (generated)
+database/*.db
+
+# Uploads (runtime/user content)
+uploads/
+
+# Env files
+.env
+.env.*

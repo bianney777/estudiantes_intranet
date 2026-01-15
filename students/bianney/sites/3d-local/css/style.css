@@ -1,0 +1,166 @@
+/* -
+-*-~*~-*-*-~*~-*-*-~*~* |
+●▬▬▬▬▬▬▬๑۩۩๑▬▬▬▬▬▬▬●
+Made by ~
+Areal Alien ❥ 雷克斯
+●▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬●
+──────▄▀▄─────▄▀▄
+─────▄█░░▀▀▀▀▀░░█▄
+─▄▄──█░░░░░░░░░░░█──▄▄
+█▄▄█─█░░▀░░┬░░▀░░█─█▄▄█
+-*-~*~-*-*-~*~-*-*-~*~* |
+- */
+:root {
+  /* Main Colors */
+  --background: #0a090d;
+  --primary: #ff76ff;
+  --text-dark: #262629;
+  --text-normal: #3e3f43;
+  --text-light: #e9eaee;
+  /* Other Colors */
+  --red: #ee6b71;
+  --orange: #f78c6a;
+  --yellow: #f2c167;
+  --light-green: #c3e88d;
+  --blue: #89ddf3;
+  --blue-muted: #82aaff;
+  --blue-muted-darker: #6383c7;
+  --pink: #c792ea;
+  --gray: #d8d8d8;
+  --gray-dark: #545454;
+  /* Gradient */
+  --rainbow: linear-gradient(90deg, rgba(137,221,243,1) 0%, rgba(199,146,234,1) 100%);
+  /* Sizes */
+  --heading-large: 7.2rem;
+  --heading-medium: 4.6rem;
+  --heading-small: 3.4rem;
+  --paragraph: 1.22rem;
+  --button-large: 1.22rem;
+  --button: 1rem;
+  /* Fonts */
+  --font-main: 'Press Start 2P', cursive;
+}
+*, *:before, *:after {
+  box-sizing: border-box;
+  font-family: var(--font-main);
+}
+html, body {
+  margin: 0;
+  color: #ff76ff;
+  background: #0d0912;
+  font-family: var(--font-main);
+  user-select: none;
+  overflow: hidden;
+}
+a {
+  text-decoration: none;
+}
+.app {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.app .score {
+  right: 0;
+  bottom: 0;
+  display: none;
+  position: fixed;
+  font-size: 65px;
+  padding: .5em;
+}
+.start-screen-logo {
+  height: 8em;
+}
+.app .start-screen {
+  padding: 2em;
+  width: 40em;
+  min-height: 20em;
+  position: absolute;
+  background: #120d18;
+  box-shadow: 0 50px 50px -30px rgba(0, 0, 0, .3);
+  border: 5px solid #0d0a12;
+  z-index: 1;
+}
+.app .start-screen h2 {
+  margin: 0;
+  font-size: 50px;
+}
+.app .start-screen button {
+  padding: .8em 1em;
+  border: 3px solid #0d0a12;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  outline: 0;
+}
+.app .start-screen button:hover,
+.app .start-screen button.active {
+  color: #ff76ff;
+  background: #0d0a12;
+}
+.app .start-screen .options {
+  margin-bottom: 40px;
+}
+.app .start-screen .options h3 {
+  margin-bottom: 25px;
+}
+.app .start-screen .play-btn {
+  padding: .8em 1em;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+/* Game In Progress */
+.app.game-in-progress .score {
+  display: block;
+}
+.app.game-in-progress .start-screen {
+  display: none;
+}
+/* Game Over */
+.app.game-over canvas {
+  opacity: 0.3;
+}
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+.bounceIn {
+  animation-duration: 0.75s;
+  animation-name: bounceIn;
+}
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.9, 0.9, 0.9);
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+  80% {
+    -webkit-transform: scale3d(0.97, 0.97, 0.97);
+    transform: scale3d(0.97, 0.97, 0.97);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}

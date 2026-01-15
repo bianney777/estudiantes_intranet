@@ -1,0 +1,28 @@
+# Routes under /dashboard/* (base path) for the intranet
+# Allows URLs like:
+#   /dashboard/login
+#   /dashboard/my-website
+# while executing the root PHP files (login.php, my-website.php, ...)
+
+RewriteEngine On
+
+# Student sites router under the /dashboard base path
+# Pass through to the real /s/ router (keeps the /dashboard/s/... URL stable).
+RewriteRule ^s/(.*)$ /s/$1 [L,QSA]
+
+# If someone requests /dashboard/*.php, redirect to the clean URL.
+RewriteCond %{THE_REQUEST} \s/+dashboard/([^\s\?]+?)\.php(?:[\s\?]) [NC]
+RewriteRule ^(.+?)\.php$ /dashboard/%1 [R=301,L]
+
+# Static assets referenced relatively from /dashboard/* pages.
+RewriteRule ^assets/(.*)$ /assets/$1 [L]
+RewriteRule ^uploads/(.*)$ /uploads/$1 [L]
+RewriteRule ^students/(.*)$ /students/$1 [L,NC]
+
+# /dashboard/ should show the main dashboard.
+RewriteRule ^$ /dashboard.php [L]
+
+# Map /dashboard/<path> to /<path>.php when it exists.
+RewriteCond %{REQUEST_URI} ^/dashboard/(.+?)/?$ [NC]
+RewriteCond %{DOCUMENT_ROOT}/%1.php -f
+RewriteRule ^.*$ /%1.php [L]

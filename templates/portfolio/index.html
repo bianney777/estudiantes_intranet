@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Plantilla de portafolio profesional para EWebLab." />
+		<title>Mi Portafolio · EWebLab</title>
+
+		<!--
+			Nota: este template funciona solo con este archivo.
+			Si existe css/style.css en el sitio, se cargará y podrá sobreescribir estilos.
+		-->
+		<style>
+			:root{
+				--bg:#0b1020;
+				--card:rgba(255,255,255,.06);
+				--card2:rgba(255,255,255,.10);
+				--text:rgba(255,255,255,.92);
+				--muted:rgba(255,255,255,.72);
+				--muted2:rgba(255,255,255,.55);
+				--border:rgba(255,255,255,.12);
+				--shadow: 0 30px 80px rgba(0,0,0,.45);
+				--primary:#60a5fa;
+				--primary2:#a78bfa;
+				--ok:#22c55e;
+				--radius:18px;
+			}
+
+			*{box-sizing:border-box}
+			html,body{height:100%}
+			body{
+				margin:0;
+				font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+				color:var(--text);
+				background:
+					radial-gradient(1200px 700px at 10% 10%, rgba(96,165,250,.35), transparent 55%),
+					radial-gradient(900px 600px at 85% 15%, rgba(167,139,250,.28), transparent 55%),
+					radial-gradient(900px 600px at 35% 95%, rgba(34,197,94,.14), transparent 55%),
+					linear-gradient(135deg, var(--bg), #141a33);
+				line-height:1.6;
+			}
+
+			a{color:inherit}
+			.container{max-width:1100px;margin:0 auto;padding:18px 16px 64px}
+
+			.topbar{
+				position: sticky;
+				top: 0;
+				z-index: 10;
+				background: rgba(11,16,32,.55);
+				backdrop-filter: blur(14px);
+				border-bottom: 1px solid var(--border);
+			}
+			.topbar .inner{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+			.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900;letter-spacing:-.5px}
+			.badge{
+				width:38px;height:38px;border-radius:14px;
+				display:grid;place-items:center;
+				background: linear-gradient(135deg, rgba(96,165,250,.28), rgba(167,139,250,.22));
+				border: 1px solid rgba(255,255,255,.14);
+			}
+			.brand small{display:block;font-weight:800;color:var(--muted2);letter-spacing:0}
+
+			.btn{
+				display:inline-flex;align-items:center;justify-content:center;gap:10px;
+				padding:12px 14px;
+				border-radius:999px;
+				border: 1px solid rgba(255,255,255,.16);
+				background: rgba(255,255,255,.08);
+				color: var(--text);
+				text-decoration:none;
+				font-weight:800;
+				transition: transform .03s ease, background .2s ease, border-color .2s ease;
+				user-select:none;
+			}
+			.btn:hover{background: rgba(255,255,255,.12);border-color: rgba(255,255,255,.22)}
+			.btn:active{transform: translateY(1px)}
+			.btn.primary{border:none;background: linear-gradient(135deg, var(--primary), var(--primary2));color:#0b1020}
+			.btn.ghost{background: transparent}
+
+			.hero{padding:28px 0 10px}
+			.hero-grid{display:grid;grid-template-columns: 1.15fr .85fr;gap:14px;align-items:stretch}
+			@media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+
+			.card{
+				background: var(--card);
+				border: 1px solid var(--border);
+				border-radius: var(--radius);
+				box-shadow: var(--shadow);
+				overflow:hidden;
+			}
+			.hero-card{padding:18px}
+			.hero h1{margin:0;font-size:38px;line-height:1.05;letter-spacing:-1px}
+			@media(max-width:520px){.hero h1{font-size:30px}}
+			.hero p{margin:12px 0 0;color:var(--muted)}
+			.hero .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+			.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+			.chip{font-size:12px;font-weight:800;color:rgba(255,255,255,.82);padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background: rgba(0,0,0,.18)}
+
+			.side{padding:18px;display:grid;gap:10px}
+			.kpi{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background: rgba(255,255,255,.06)}
+			.kpi .n{font-size:18px;font-weight:950}
+			.kpi .l{font-size:12px;color:var(--muted2);font-weight:800}
+			.dot{width:12px;height:12px;border-radius:99px;background: var(--ok);box-shadow:0 0 0 5px rgba(34,197,94,.18)}
+
+			.section{margin-top:18px}
+			.section h2{margin:0 0 10px;font-size:18px;letter-spacing:-.2px}
+			.grid{display:grid;grid-template-columns: repeat(3, minmax(0, 1fr));gap:12px}
+			@media(max-width:900px){.grid{grid-template-columns:1fr}}
+			.tile{padding:14px;border-radius:18px;border:1px solid rgba(255,255,255,.12);background: rgba(255,255,255,.06)}
+			.tile h3{margin:0 0 6px;font-size:14px;letter-spacing:-.2px}
+			.tile p{margin:0;color:var(--muted)}
+
+			.eweblab{padding:18px}
+			.eweblab p{margin:0;color:var(--muted)}
+			.abbr{margin:12px 0 0;display:grid;gap:10px}
+			.abbr .row{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background: rgba(0,0,0,.18)}
+			.abbr .letter{width:36px;height:36px;border-radius:14px;display:grid;place-items:center;font-weight:950;background: rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
+			.abbr .row strong{display:block}
+			.abbr .row span{display:block;color:var(--muted2);font-weight:700;font-size:13px}
+
+			.footer{margin-top:22px;color:var(--muted2);font-size:13px}
+			.footer .card{padding:14px;box-shadow:none}
+			.footer a{color:rgba(255,255,255,.92)}
+		</style>
+
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<header class="topbar">
+			<div class="inner">
+				<a class="brand" href="#inicio" aria-label="Ir al inicio">
+					<span class="badge">EW</span>
+					<span>
+						Mi Portafolio
+						<small>EWebLab</small>
+					</span>
+				</a>
+
+				<nav style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+					<a class="btn ghost" href="#proyectos">Proyectos</a>
+					<a class="btn ghost" href="#sobre-mi">Sobre mí</a>
+					<a class="btn ghost" href="#eweblab">¿Qué es EWebLab?</a>
+					<a class="btn" href="/index" title="Volver a la página principal de la intranet">← Volver al index</a>
+				</nav>
+			</div>
+		</header>
+
+		<main class="container" id="inicio">
+			<section class="hero">
+				<div class="hero-grid">
+					<div class="card hero-card">
+						<h1>Hola, soy <span style="background:linear-gradient(135deg,var(--primary),var(--primary2));-webkit-background-clip:text;background-clip:text;color:transparent">Tu Nombre</span>.</h1>
+						<p>
+							Bienvenido a mi portafolio. Aquí muestro mis proyectos, habilidades y lo que estoy aprendiendo.
+							Esta plantilla es moderna, responsive y lista para personalizar.
+						</p>
+
+						<div class="actions">
+							<a class="btn primary" href="#proyectos">Ver proyectos</a>
+							<a class="btn" href="#contacto">Contactarme</a>
+						</div>
+
+						<div class="chips" aria-label="Habilidades">
+							<span class="chip">HTML</span>
+							<span class="chip">CSS</span>
+							<span class="chip">JavaScript</span>
+							<span class="chip">Diseño Responsive</span>
+						</div>
+					</div>
+
+					<aside class="card side" aria-label="Resumen">
+						<div class="kpi"><div><div class="n">3+</div><div class="l">Proyectos</div></div><div class="dot" aria-hidden="true"></div></div>
+						<div class="kpi"><div><div class="n">1</div><div class="l">Portafolio</div></div><div style="font-weight:950">★</div></div>
+						<div class="kpi"><div><div class="n">100%</div><div class="l">Responsive</div></div><div style="font-weight:950">📱</div></div>
+						<div style="color:var(--muted);font-weight:700;font-size:13px">
+							Consejo: cambia “Tu Nombre”, agrega tus proyectos y edita colores en CSS.
+						</div>
+					</aside>
+				</div>
+			</section>
+
+			<section class="section" id="proyectos">
+				<h2>Proyectos destacados</h2>
+				<div class="grid">
+					<article class="tile">
+						<h3>Proyecto 1 · Landing Page</h3>
+						<p>Una página principal con secciones y diseño limpio.</p>
+					</article>
+					<article class="tile">
+						<h3>Proyecto 2 · Galería</h3>
+						<p>Galería responsive con tarjetas e imágenes.</p>
+					</article>
+					<article class="tile">
+						<h3>Proyecto 3 · Mini App</h3>
+						<p>Interacción con JavaScript: botones, efectos y formularios.</p>
+					</article>
+				</div>
+			</section>
+
+			<section class="section" id="sobre-mi">
+				<h2>Sobre mí</h2>
+				<div class="card" style="padding:18px">
+					<p style="margin:0;color:var(--muted)">
+						Escribe aquí una presentación corta: qué estudias, qué te gusta construir y qué metas tienes.
+						Puedes agregar también tu carrera, semestre o intereses.
+					</p>
+				</div>
+			</section>
+
+			<section class="section" id="eweblab">
+				<div class="card eweblab">
+					<h2 style="margin:0 0 8px">¿Qué significa EWebLab?</h2>
+					<p>
+						<strong>EWebLab</strong> es un espacio para aprender creando. Sus siglas se entienden así:
+					</p>
+
+					<div class="abbr" role="list">
+						<div class="row" role="listitem">
+							<div class="letter">E</div>
+							<div>
+								<strong>Educación</strong>
+								<span>Aprender paso a paso, con ejemplos y práctica.</span>
+							</div>
+						</div>
+						<div class="row" role="listitem">
+							<div class="letter">Web</div>
+							<div>
+								<strong>Web</strong>
+								<span>Crear páginas y sitios que funcionen en computadora y teléfono.</span>
+							</div>
+						</div>
+						<div class="row" role="listitem">
+							<div class="letter">Lab</div>
+							<div>
+								<strong>Laboratorio</strong>
+								<span>Un lugar para experimentar: probar, equivocarse y mejorar.</span>
+							</div>
+						</div>
+					</div>
+
+					<div style="margin-top:12px;color:var(--muted2);font-weight:700;font-size:13px">
+						Personaliza este bloque con la descripción oficial de tu institución si lo deseas.
+					</div>
+				</div>
+			</section>
+
+			<section class="section" id="contacto">
+				<h2>Contacto</h2>
+				<div class="card" style="padding:18px">
+					<p style="margin:0;color:var(--muted)">Puedes poner aquí tu correo, redes o un formulario.</p>
+					<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+						<a class="btn" href="mailto:tu-correo@ejemplo.com">Enviar correo</a>
+						<a class="btn" href="#inicio">Volver arriba ↑</a>
+					</div>
+				</div>
+			</section>
+
+			<footer class="footer">
+				<div class="card">
+					Hecho con EWebLab · Edita esta plantilla desde el editor.
+					<span style="opacity:.8">—</span>
+					<a href="/index">Regresar al index</a>
+				</div>
+			</footer>
+		</main>
+
+		<script>
+			// Scroll suave para los enlaces internos (simple y compatible)
+			document.querySelectorAll('a[href^="#"]').forEach(a => {
+				a.addEventListener('click', (e) => {
+					const id = a.getAttribute('href');
+					if (!id || id === '#') return;
+					const el = document.querySelector(id);
+					if (!el) return;
+					e.preventDefault();
+					el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				});
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venta de Auto | Modelo 2024</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Venta de Vehículo Exclusivo</h1>
+    </header>
+
+    <main class="container">
+        <section class="car-card">
+            <div class="image-container">
+                <img id="main-car-image" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" alt="Auto en venta">
+            </div>
+            
+            <div class="details">
+                <h2>Porsche 911 Carrera S</h2>
+                <p class="price">$120,000 USD</p>
+                
+                <ul class="specs">
+                    <li><strong>Año:</strong> 2024</li>
+                    <li><strong>Kilometraje:</strong> 5,000 km</li>
+                    <li><strong>Transmisión:</strong> Automática</li>
+                    <li><strong>Combustible:</strong> Gasolina</li>
+                </ul>
+
+                <button id="btn-interes" onclick="mostrarContacto()">Me interesa este auto</button>
+            </div>
+        </section>
+
+        <section id="contact-form" class="hidden">
+            <h3>Contactar al Vendedor</h3>
+            <form id="car-form">
+                <input type="text" placeholder="Tu Nombre" required>
+                <input type="email" placeholder="Tu Correo" required>
+                <textarea placeholder="Escribe tu mensaje..."></textarea>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

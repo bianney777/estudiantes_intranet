@@ -1,0 +1,12 @@
+# Router for pretty student-site URLs under /s/
+# This folder exists to avoid server-specific issues with /s/{...} when /s is treated as PATH_INFO.
+
+RewriteEngine On
+
+# Serve real files directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Everything else goes to index.php
+RewriteRule ^ index.php [L,QSA]

@@ -1,0 +1,136 @@
+/* styles */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.box {
+  height: 150px;
+  width: 150px;
+  margin: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  transition: all 2s ease;
+}
+
+h1 {
+  color: black;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+p {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.credit {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+#box1:hover {
+  color: white;
+  transform: rotateX(45deg);
+  background-color: #990099;
+}
+
+#box2:hover {
+  color: white;
+  transform: rotateY(45deg);
+  background-color: #990099;
+}
+
+#box3:hover {
+  color: white;
+  transform: rotateZ(45deg);
+  background-color: #990099;
+}
+
+#box4:hover {
+  color: white;
+  transform: translateX(100px);
+  background-color: #990099;
+}
+
+#box5:hover {
+  color: white;
+  transform: translateY(100px);
+  background-color: #990099;
+}
+
+#box6:hover {
+  color: white;
+  transform: perspective(200px) translateZ(100px);
+  background-color: #990099;
+}
+
+#box7:hover {
+  color: white;
+  transform: perspective(200px) translateZ(-100px);
+  background-color: #990099;
+}
+
+#box8:hover {
+  color: white;
+  transform: scaleX(1.5);
+  background-color: #990099;
+}
+
+#box9:hover {
+  color: white;
+  transform: scaleY(1.5);
+  background-color: #990099;
+}
+
+#box10:hover {
+  color: white;
+  transform: perspective(300px) rotateY(30deg) scaleZ(5);
+  background-color: #990099;
+}
+
+#box11:hover {
+  color: white;
+  transform: perspective(300px) rotateY(-30deg) scaleZ(5);
+  background-color: #990099;
+}
+
+#box12:hover {
+  color: white;
+  transform: perspective(300px) rotateX(30deg) scaleZ(5);
+
+  background-color: #990099;
+}
+
+footer > p {
+  text-align: center;
+  margin: 20px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+@media only screen and (max-width: 430px) {
+  .container {
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
