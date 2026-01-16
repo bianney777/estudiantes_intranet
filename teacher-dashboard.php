@@ -231,6 +231,7 @@ function presenceBadge(?string $lastSeenAt): array {
       <a class="brand" href="teacher-dashboard.php"><span class="dot"><i class="fa-solid fa-chalkboard-user"></i></span> Docente</a>
       <div class="nav">
         <a class="pill" href="teacher-create.php"><i class="fa-solid fa-user-plus"></i> Crear maestro</a>
+        <a class="pill" href="teacher-results.php"><i class="fa-solid fa-chart-column"></i> Resultados</a>
         <a class="pill" href="index.php" target="_blank"><i class="fa-solid fa-house"></i> Inicio</a>
         <a class="pill" href="teacher-logout.php"><i class="fa-solid fa-right-from-bracket"></i> Salir</a>
       </div>
