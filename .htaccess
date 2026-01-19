@@ -1,6 +1,23 @@
 # Pretty URLs for student sites
 # Requires: Apache mod_rewrite enabled and AllowOverride All for this directory
 
+# ------------------------------------------------------------------
+# Permitir acceso desde otros dispositivos (teléfono) en la misma red
+# ------------------------------------------------------------------
+# En XAMPP, la carpeta /dashboard suele estar restringida a "solo local".
+# Como este proyecto vive en /dashboard/estudiantes_intranet, en teléfonos puede dar 403.
+# Con AuthMerging Off, estas reglas reemplazan las del directorio padre.
+
+<IfModule mod_authz_core.c>
+	AuthMerging Off
+	Require all granted
+</IfModule>
+
+<IfModule !mod_authz_core.c>
+	Order allow,deny
+	Allow from all
+</IfModule>
+
 RewriteEngine On
 
 # -----------------------------
