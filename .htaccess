@@ -20,6 +20,11 @@
 
 RewriteEngine On
 
+# Si alguien entra con una ruta de Windows en la URL, redirigir al inicio correcto
+RewriteCond %{REQUEST_URI} ^/C:/xampp/htdocs/ [NC,OR]
+RewriteCond %{REQUEST_URI} ^/C:/xampp/ [NC]
+RewriteRule ^.*$ /dashboard.php [R=302,L]
+
 # -----------------------------
 # Intranet "no .php" URLs
 # -----------------------------

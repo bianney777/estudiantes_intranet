@@ -22,7 +22,22 @@ function appBaseUrl(): string {
     $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
     $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
     $scriptName = (string)($_SERVER['SCRIPT_NAME'] ?? '');
-    $basePath = rtrim(str_replace('\\', '/', dirname($scriptName)), '/');
+    $useScript = ($scriptName !== '' && strpos($scriptName, ':') === false && strpos($scriptName, '\\') === false);
+
+    if ($useScript) {
+        $basePath = rtrim(str_replace('\\', '/', dirname($scriptName)), '/');
+    } else {
+        $uri = (string)($_SERVER['REQUEST_URI'] ?? '');
+        $path = (string)(parse_url($uri, PHP_URL_PATH) ?? '');
+        if ($path === '') {
+            $basePath = '';
+        } elseif (substr($path, -1) === '/') {
+            $basePath = rtrim($path, '/');
+        } else {
+            $basePath = rtrim(dirname($path), '/');
+        }
+    }
+
     if ($basePath === '.' || $basePath === '/') {
         $basePath = '';
     }
