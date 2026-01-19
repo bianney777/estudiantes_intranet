@@ -65,6 +65,16 @@ function db(): PDO {
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $pdo->exec('PRAGMA foreign_keys = ON');
 
+    // Mejorar concurrencia/estabilidad (ej: PC + teléfono a la vez)
+    // - busy_timeout: esperar antes de fallar por lock
+    // - WAL: reduce bloqueos entre lecturas/escrituras
+    try {
+        $pdo->exec('PRAGMA busy_timeout = 5000');
+        $pdo->exec('PRAGMA journal_mode = WAL');
+    } catch (Throwable $e) {
+        // Si el entorno no permite cambiar el modo, continuamos con defaults.
+    }
+
     // Auto-inicializar esquema si falta (evita: "no such table: estudiantes")
     ensureDatabaseSchema($pdo);
     // Migraciones ligeras (roles/maestros) sin borrar la BD
