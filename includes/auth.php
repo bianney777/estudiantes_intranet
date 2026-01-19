@@ -13,7 +13,7 @@ function isLoggedIn() {
 }
 function ensureLoggedIn() {
   if (!isLoggedIn()) {
-    header('Location: login.php');
+    header('Location: ' . appBaseUrl() . '/login.php');
     exit;
   }
 }

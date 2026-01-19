@@ -51,7 +51,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         'avatar' => null,
       ];
 
-      header('Location: dashboard.php');
+      header('Location: ' . appBaseUrl() . '/dashboard.php');
       exit;
     } catch (Throwable $e) {
       // Mensajes amigables para constraints comunes

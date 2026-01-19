@@ -13,6 +13,23 @@ define('PROJECT_ROOT', $__projectRoot);
 define('SITE_NAME', 'Intranet Estudiantil - Publica tu Web');
 define('SITE_URL', 'http://localhost/estudiantes_intranet/');
 
+// URL base dinámica (evita rutas tipo C:/xampp/... en redirecciones)
+function appBaseUrl(): string {
+    static $base = null;
+    if ($base !== null) {
+        return $base;
+    }
+    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $scriptName = (string)($_SERVER['SCRIPT_NAME'] ?? '');
+    $basePath = rtrim(str_replace('\\', '/', dirname($scriptName)), '/');
+    if ($basePath === '.' || $basePath === '/') {
+        $basePath = '';
+    }
+    $base = $scheme . '://' . $host . $basePath;
+    return $base;
+}
+
 // SQLite
 define('DB_PATH', PROJECT_ROOT . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'students_intranet.db');
 

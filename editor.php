@@ -4,7 +4,7 @@ require_once 'includes/auth.php';
 
 $auth = new Auth();
 if (!$auth->isLoggedIn()) {
-    header('Location: login.php');
+    header('Location: ' . appBaseUrl() . '/login.php');
     exit();
 }
 

@@ -7,5 +7,5 @@ teacherLogout();
 // Si también había sesión de estudiante, la dejamos intacta.
 // Si quieres cerrar TODO, usa logout.php.
 
-header('Location: teacher-login.php');
+header('Location: ' . appBaseUrl() . '/teacher-login.php');
 exit;

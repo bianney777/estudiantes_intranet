@@ -7,7 +7,7 @@ function isTeacherLoggedIn(): bool {
 
 function ensureTeacherLoggedIn(): void {
     if (!isTeacherLoggedIn()) {
-        header('Location: teacher-login.php');
+        header('Location: ' . appBaseUrl() . '/teacher-login.php');
         exit;
     }
 }

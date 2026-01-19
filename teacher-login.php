@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/teacher_auth.php';
 
 if (isTeacherLoggedIn()) {
-    header('Location: teacher-dashboard.php');
+  header('Location: ' . appBaseUrl() . '/teacher-dashboard.php');
     exit;
 }
 
@@ -38,7 +38,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 $upd = $db->prepare("UPDATE profesores SET ultimo_login = datetime('now') WHERE id = ?");
                 $upd->execute([(int)$teacher['id']]);
 
-                header('Location: teacher-dashboard.php');
+                header('Location: ' . appBaseUrl() . '/teacher-dashboard.php');
                 exit;
             }
         } catch (Throwable $e) {

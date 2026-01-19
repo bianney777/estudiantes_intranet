@@ -10,5 +10,5 @@ teacherLogout();
 // Opcional: destruir sesión completa
 session_destroy();
 
-header('Location: login.php');
+header('Location: ' . appBaseUrl() . '/login.php');
 exit;

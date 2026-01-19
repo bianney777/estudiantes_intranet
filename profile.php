@@ -7,7 +7,7 @@ $db = getDB();
 $sessionUser = $_SESSION['user'];
 $studentId = (int)($sessionUser['id'] ?? 0);
 if ($studentId <= 0) {
-    header('Location: logout.php');
+  header('Location: ' . appBaseUrl() . '/logout.php');
     exit;
 }
 
@@ -203,7 +203,7 @@ $stmt = $db->prepare('SELECT id, codigo, nombre, apellido, email, carrera, semes
 $stmt->execute([$studentId]);
 $student = $stmt->fetch();
 if (!$student) {
-    header('Location: logout.php');
+            header('Location: ' . appBaseUrl() . '/logout.php');
     exit;
 }
 
