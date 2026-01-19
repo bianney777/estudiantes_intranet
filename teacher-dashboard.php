@@ -115,6 +115,52 @@ foreach ($students as $s) {
     $totalSites += count($s['sites']);
 }
 
+// Monitoreo básico del sistema
+function formatBytes(?int $bytes): string {
+  if ($bytes === null || $bytes < 0) {
+    return '—';
+  }
+  $units = ['B','KB','MB','GB','TB'];
+  $i = 0;
+  $size = (float)$bytes;
+  while ($size >= 1024 && $i < count($units) - 1) {
+    $size /= 1024;
+    $i++;
+  }
+  return number_format($size, 1) . ' ' . $units[$i];
+}
+
+function dirSize(string $dir, int $limitBytes = 200000000): int {
+  if (!is_dir($dir)) {
+    return 0;
+  }
+  $size = 0;
+  $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS));
+  foreach ($it as $file) {
+    if ($file->isFile()) {
+      $size += $file->getSize();
+      if ($size > $limitBytes) {
+        break;
+      }
+    }
+  }
+  return $size;
+}
+
+$diskFree = @disk_free_space(PROJECT_ROOT);
+$diskTotal = @disk_total_space(PROJECT_ROOT);
+$dbSize = file_exists(DB_PATH) ? @filesize(DB_PATH) : null;
+$uploadsSize = dirSize(UPLOAD_DIR);
+
+$recent = [];
+try {
+  $stmt = $db->prepare('SELECT nombre, apellido, codigo, last_seen_at FROM estudiantes WHERE last_seen_at IS NOT NULL ORDER BY last_seen_at DESC LIMIT 8');
+  $stmt->execute();
+  $recent = $stmt->fetchAll() ?: [];
+} catch (Throwable $e) {
+  $recent = [];
+}
+
 function h($v): string {
     return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8');
 }
@@ -195,6 +241,19 @@ function presenceBadge(?string $lastSeenAt): array {
     .kpi .n{font-weight:900;font-size:22px}
     .kpi .l{color:var(--muted);font-weight:700}
 
+    .monitor{margin:14px 0 6px}
+    .monitor-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:10px}
+    @media(max-width:980px){.monitor-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:560px){.monitor-grid{grid-template-columns:1fr}}
+    .monitor-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:12px}
+    .monitor-card .t{font-weight:800;color:#111827}
+    .monitor-card .v{margin-top:4px;color:var(--muted);font-weight:700}
+    .recent{margin-top:10px;background:rgba(255,255,255,.92);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+    .recent .head{padding:10px 12px;font-weight:900;background:rgba(17,24,39,.04)}
+    .recent .item{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid rgba(17,24,39,.08)}
+    .recent .name{font-weight:900}
+    .recent .time{color:var(--muted);font-weight:700;font-size:12px}
+
     .search{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
     .search input{flex:1;min-width:220px;padding:12px 12px;border-radius:14px;border:1px solid rgba(17,24,39,.18)}
     .search button{padding:12px 14px;border-radius:14px;border:none;cursor:pointer;font-weight:800;color:white;background:linear-gradient(135deg,var(--primary),var(--secondary))}
@@ -249,6 +308,36 @@ function presenceBadge(?string $lastSeenAt): array {
     <div class="cards">
       <div class="card"><div class="kpi"><div><div class="n"><?php echo (int)$totalStudents; ?></div><div class="l">Estudiantes</div></div><i class="fa-solid fa-user-graduate" style="color:#667eea"></i></div></div>
       <div class="card"><div class="kpi"><div><div class="n"><?php echo (int)$totalSites; ?></div><div class="l">Sitios</div></div><i class="fa-solid fa-globe" style="color:#764ba2"></i></div></div>
+    </div>
+
+    <div class="monitor">
+      <div style="color:rgba(255,255,255,.9);font-weight:900;">Monitoreo del sistema</div>
+      <div class="monitor-grid">
+        <div class="monitor-card"><div class="t">Servidor</div><div class="v">Activo</div></div>
+        <div class="monitor-card"><div class="t">Hora</div><div class="v"><?php echo h(date('Y-m-d H:i')); ?></div></div>
+        <div class="monitor-card"><div class="t">PHP</div><div class="v"><?php echo h(PHP_VERSION); ?></div></div>
+        <div class="monitor-card"><div class="t">BD</div><div class="v"><?php echo h(formatBytes($dbSize)); ?></div></div>
+        <div class="monitor-card"><div class="t">Uploads</div><div class="v"><?php echo h(formatBytes($uploadsSize)); ?></div></div>
+        <div class="monitor-card"><div class="t">Disco libre</div><div class="v"><?php echo h(formatBytes($diskFree)); ?></div></div>
+      </div>
+
+      <div class="recent" style="margin-top:10px;">
+        <div class="head">Actividad reciente</div>
+        <?php if (empty($recent)): ?>
+          <div class="item"><div class="time">Sin actividad reciente.</div></div>
+        <?php else: ?>
+          <?php foreach ($recent as $r): ?>
+            <?php $presence = presenceBadge($r['last_seen_at'] ?? ''); ?>
+            <div class="item">
+              <div>
+                <div class="name"><?php echo h(($r['apellido'] ?? '') . ', ' . ($r['nombre'] ?? '')); ?> <span style="color:#6b7280;">(<?php echo h($r['codigo'] ?? ''); ?>)</span></div>
+                <div class="time">Última actividad: <?php echo h($r['last_seen_at'] ?? '—'); ?></div>
+              </div>
+              <span class="presence <?php echo h($presence['class']); ?>"><span class="dot" aria-hidden="true"></span><?php echo h($presence['label']); ?></span>
+            </div>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </div>
     </div>
 
     <form class="search" method="get" action="">
