@@ -32,7 +32,7 @@ RewriteRule ^.*$ /dashboard.php [R=302,L]
 #    Example: /login.php  -> /login
 # Only apply when NOT using the host-mapped student site domain.
 RewriteCond %{HTTP_HOST} !^pepito\.local$ [NC]
-RewriteCond %{REQUEST_URI} !^/dashboard\.php$ [NC]
+RewriteCond %{REQUEST_URI} !/dashboard\.php$ [NC]
 RewriteCond %{REQUEST_METHOD} =GET [OR]
 RewriteCond %{REQUEST_METHOD} =HEAD
 RewriteCond %{THE_REQUEST} \s/+([^\s\?]+?)\.php(?:[\s\?]) [NC]
